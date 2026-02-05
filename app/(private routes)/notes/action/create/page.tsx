@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CreateNoteClient from "./CreateNote.client";
+import CreateNoteClient from "../create/CreateNote.client";
 import css from "./CreateNote.module.css";
 
 export const metadata: Metadata = {
