@@ -25,13 +25,13 @@ export default function SignUpPage() {
         const user = await register({ email, password });
         setUser(user);
         router.push("/profile");
-    } catch (err) {
-        if (err instanceof Error) {
-            setError(err.message);
-        } else {
-            setError("Registration failed");
+    }  catch (err: any) {
+        setError(
+            err?.response?.data?.validation?.body?.message ||
+            "Registration failed"
+        );
         }
-    } finally {
+        finally {
         setIsLoading(false);
     }
     };

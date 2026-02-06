@@ -25,13 +25,13 @@ export default function SignInPage() {
         const user = await login({ email, password });
         setUser(user);
         router.push("/profile");
-    } catch (err) {
-        if (err instanceof Error) {
-            setError(err.message);
-        } else {
-            setError("Login failed");
-        }
-        }
+        }  catch (err: any) {
+    setError(
+        err?.response?.data?.validation?.body?.message ||
+        "Login failed"
+    );
+}
+
     };
 
     return (
