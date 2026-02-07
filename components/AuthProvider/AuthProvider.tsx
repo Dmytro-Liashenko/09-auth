@@ -10,6 +10,7 @@ export default function AuthProvider({
 }: {
     children: React.ReactNode;
 }) {
+    
     const pathname = usePathname();
     const { setUser, clearUser, isAuthenticated } = useAuthStore();
     const [isChecking, setIsChecking] = useState(!isAuthenticated);
