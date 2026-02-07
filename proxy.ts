@@ -4,13 +4,13 @@ export function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     const isAuthRoute =
-    pathname.startsWith("/sign-in") || pathname.startsWith("/sign-up");
-
+        pathname.startsWith("/sign-in") || pathname.startsWith("/sign-up");
     const isPrivateRoute =
         pathname.startsWith("/profile") || pathname.startsWith("/notes");
 
-    const token = request.cookies.get("session_token");
-    const isAuthenticated = Boolean(token);
+
+    const hasCookies = request.cookies.size > 0;
+    const isAuthenticated = hasCookies;
 
     if (!isAuthenticated && isPrivateRoute) {
         return NextResponse.redirect(new URL("/sign-in", request.url));
@@ -21,4 +21,4 @@ export function proxy(request: NextRequest) {
     }
 
     return NextResponse.next();
-}
+    }
