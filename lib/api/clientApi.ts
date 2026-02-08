@@ -29,7 +29,7 @@ export async function logout(): Promise<void> {
 export async function checkSession(): Promise<User | null> {
     try {
         const response = await api.get<User>("/auth/session");
-        return response.data;
+        return response.data || null;
     } catch {
         return null;
     }
