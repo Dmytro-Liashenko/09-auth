@@ -10,19 +10,21 @@ export const api = axios.create({
   },
 });
 
-api.interceptors.request.use(
-  (config) => {
-    const cookies = document.cookie.split('; ');
-    const accessTokenCookie = cookies.find(row => row.startsWith('accessToken='));
-    
-    if (accessTokenCookie) {
-      const token = accessTokenCookie.split('=')[1];
-      config.headers.Authorization = `Bearer ${token}`;
+if (typeof window !== "undefined") {
+  api.interceptors.request.use(
+    (config) => {
+      const cookies = document.cookie.split('; ');
+      const accessTokenCookie = cookies.find(row => row.startsWith('accessToken='));
+      
+      if (accessTokenCookie) {
+        const token = accessTokenCookie.split('=')[1];
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
     }
-    
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+  );
+}
